@@ -1,3 +1,18 @@
+import { getPuuid } from "../services/riotAPI.js";
+
 export async function getInfo(req, res) {
+
+    const {username, gametag} = req.query;
+    
+    try{
+        if (!gametag || !username) {
+            return res.status(400).json({message: "fill username and gametag"})
+        }
+        const puuid = await getPuuid(username, gametag);
+        res.status(201).json(puuid);
+    } catch (error) {
+        console.log("Error in getInfo");
+        res.status(500).json({ message: "error in getInfo"})
+    }
     
 }

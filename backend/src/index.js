@@ -4,6 +4,8 @@ import express from "express"
 
 const app = express()
 
+app.use(express.json());
+
 //routes to be used
 app.use("/api/account", accountRoutes)
 
