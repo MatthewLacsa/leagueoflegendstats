@@ -10,7 +10,12 @@ export async function getInfo(req, res) {
         }
         const info = await getUserInfo(username, gametag);
         const userInfo = await takeSummonerProfile(info.puuid);
-        res.status(201).json(userInfo)
+        res.status(201).json({
+           gamerTag: info,
+           profile: userInfo, 
+        }
+            
+        )
     } catch (error) {
         console.log("Error in getInfo");
         res.status(500).json({ message: "error in getInfo"})
