@@ -1,4 +1,4 @@
-import { getPuuid } from "../services/riotAPI.js";
+import { getUserInfo, takeSummonerProfile} from "../services/riotAPI.js";
 
 export async function getInfo(req, res) {
 
@@ -8,8 +8,9 @@ export async function getInfo(req, res) {
         if (!gametag || !username) {
             return res.status(400).json({message: "fill username and gametag"})
         }
-        const puuid = await getPuuid(username, gametag);
-        res.status(201).json(puuid);
+        const info = await getUserInfo(username, gametag);
+        const userInfo = await takeSummonerProfile(info.puuid);
+        res.status(201).json(userInfo)
     } catch (error) {
         console.log("Error in getInfo");
         res.status(500).json({ message: "error in getInfo"})

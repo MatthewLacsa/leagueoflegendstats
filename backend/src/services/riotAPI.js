@@ -5,7 +5,7 @@ config();
 const API_KEY = process.env.RIOT_API_KEY;
 const BASE_URL = "https://americas.api.riotgames.com";
 
-export async function getPuuid(username, gametag) {
+export async function getUserInfo(username, gametag) {
    const response = await axios.get(`${BASE_URL}/riot/account/v1/accounts/by-riot-id/${username}/${gametag}`, {
     headers: {
         'X-Riot-Token': API_KEY
@@ -14,7 +14,12 @@ export async function getPuuid(username, gametag) {
    return response.data
 }
 
-export async function takeUsersInfo(puuid) {
 
-
+export async function takeSummonerProfile(puuid) {
+    const response = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}`, {   
+        headers: {
+            'X-Riot-Token': API_KEY
+        }
+    })
+    return response.data
 }
