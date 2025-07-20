@@ -24,3 +24,21 @@ export async function takeSummonerProfile(puuid) {
     })
     return response.data
 }
+
+export async function takeSummonerMatches(puuid) {
+    const response = await axios.get(`${BASE_URL}/lol/match/v5/matches/by-puuid/${puuid}`, {   
+        headers: {
+            'X-Riot-Token': API_KEY
+        }
+    })
+    return response.data
+}
+
+export async function takeMatchInfo(matchId) {
+    const response = await axios.get(`${BASE_URL}/lol/match/v5/matches/${matchId}`, {   
+        headers: {
+            'X-Riot-Token': API_KEY
+        }
+    })
+    return response.data
+}

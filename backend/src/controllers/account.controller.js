@@ -22,3 +22,13 @@ export async function getInfo(req, res) {
     }
     
 }
+
+export async function getMatchInfo(req, res) {
+    const {puuid} = req.query;
+
+    try {
+        
+    } catch (error) {
+        
+    }
+}
