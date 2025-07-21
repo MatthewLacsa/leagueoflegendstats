@@ -26,7 +26,7 @@ export async function takeSummonerProfile(puuid) {
 }
 
 export async function takeSummonerMatches(puuid) {
-    const response = await axios.get(`${BASE_URL}/lol/match/v5/matches/by-puuid/${puuid}`, {   
+    const response = await axios.get(`${BASE_URL}/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20`, {   
         headers: {
             'X-Riot-Token': API_KEY
         }
