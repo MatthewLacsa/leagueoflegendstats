@@ -1,6 +1,11 @@
 import { getUserInfo, takeSummonerProfile, takeSummonerMatches, takeMatchInfo} from "../services/riotAPI.js";
+import User from "../models/user.models.js";
+
 
 export async function signup(req, res) {
+    const {username, gametag, password} = req.body;
+
+
     try {
         
     } catch (error) {
@@ -10,6 +15,8 @@ export async function signup(req, res) {
 
 
 export async function login(req, res) {
+    const {username, gametag, password} = req.body;
+
     try {
         
     } catch (error) {
