@@ -1,5 +1,31 @@
 import { getUserInfo, takeSummonerProfile, takeSummonerMatches, takeMatchInfo} from "../services/riotAPI.js";
 
+export async function signup(req, res) {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+
+export async function login(req, res) {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+export async function logout(req, res) {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+
 export async function getInfo(req, res) {
 
     const {username, gametag} = req.query;
