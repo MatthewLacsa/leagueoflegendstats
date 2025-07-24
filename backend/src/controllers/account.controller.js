@@ -1,6 +1,7 @@
 import { getUserInfo, takeSummonerProfile, takeSummonerMatches, takeMatchInfo} from "../services/riotAPI.js";
 import User from "../models/user.models.js";
 import bcrypt from "bcryptjs"
+import { generateToken } from "../../lib/utils.js";
 
 export async function signup(req, res) {
     const {username, gametag, password} = req.body;
@@ -32,7 +33,14 @@ export async function signup(req, res) {
         });
 
         if(newRiotAccount) {
-            
+            generateToken(user._id, res);
+            await newRiotAccount.save()
+
+            res.status(201).json({
+                _id: user._id,
+                username: user.username,
+                gametag: user.gametag,
+            })
         } else {
             return res.status(400).json({message: "This user already exists"})
         }
@@ -61,12 +69,16 @@ export async function login(req, res) {
         if(!checkPassword) {
             return res.status(400).json({message: "Incorrect Password"})
         }
+
+        generateToken(user._id, res);
+
         res.status(200).json({
             _id: user._id,
             username: user.username,
             gametag: user.gametag,
     
         })
+
     } catch (error) {
         console.log("There is an error in the login controller", error.message);
         res.status(500).json({message:"Internal server error"});
