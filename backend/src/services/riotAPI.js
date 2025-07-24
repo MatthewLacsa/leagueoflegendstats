@@ -1,6 +1,4 @@
 import axios from 'axios';
-import {config} from 'dotenv'
-config();
 
 const API_KEY = process.env.RIOT_API_KEY;
 const BASE_URL = "https://americas.api.riotgames.com";
