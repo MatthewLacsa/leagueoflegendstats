@@ -17,7 +17,7 @@ export async function signup(req, res) {
             return res.status(400).json({message: "Password has to be longer than 7 characters"})
         }
         //check if user exists in db
-        const user = User.findOne({username});
+        const user = await User.findOne({username});
 
         if(user) {
             return res.status(400).json({message: "This user already exists"});
@@ -28,12 +28,12 @@ export async function signup(req, res) {
 
         const newRiotAccount = new User({
             username,
-            gametag,
+            riotId: gametag,
             password: hashedPass
         });
 
         if(newRiotAccount) {
-            generateToken(user._id, res);
+            generateToken(newRiotAccount._id, res);
             await newRiotAccount.save()
 
             res.status(201).json({
