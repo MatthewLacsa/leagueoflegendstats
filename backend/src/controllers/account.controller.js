@@ -1,11 +1,16 @@
 import User from "../models/user.models.js";
 import bcrypt from "bcryptjs"
 import { generateToken } from "../lib/utils.js";
-
+import { getUserInfo } from "../services/riotAPI.js";
 export async function signup(req, res) {
     const {username, gametag, password} = req.body;
 
     try {
+        const checkIfExists = await getUserInfo(username, gametag);
+        
+        if(!checkIfExists) {
+            return res.status(400).json({message: "This account does not exist"})
+        }
         //check if all fields are filled
         if(!username || !gametag || !password) {
             return res.status(400).json({message: "Please fill all the fields."})
