@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const StatsPanel = () => {
-  const [stats] = useState({
+  const [stats, setStats] = useState({
     kdaRatio: "5.0",
     killParticipation: "100%",
     csPerMatch: "330",
@@ -14,7 +14,15 @@ const StatsPanel = () => {
   }, []);
 
   const fetchStats = async () => {
-    
+    try {
+      const response = await fetch('/api/stats', {
+        credentials: 'include'
+      });
+      const data = await response.json();
+      setStats(data.stats || stats);
+    } catch (error) {
+      console.error('Failed to fetch stats:', error);
+    }
   };
 
   const statItems = [
