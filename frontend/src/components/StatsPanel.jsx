@@ -58,53 +58,13 @@ const StatsPanel = () => {
     },
   ];
 
-  const containerStyles = {
-    backgroundColor: '#1f2937',
-    border: '2px solid #dc2626',
-    borderRadius: '0.5rem',
-    padding: '1rem'
-  };
-
-  const gridStyles = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: '1rem'
-  };
-
-  const statItemStyles = {
-    textAlign: 'center',
-    padding: '0.5rem',
-    borderRadius: '0.5rem',
-    transition: 'background-color 0.2s'
-  };
-
-  const iconStyles = {
-    width: '3rem',
-    height: '3rem',
-    margin: '0 auto 0.5rem'
-  };
-
-  const valueStyles = {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: '0.25rem',
-    margin: '0 0 0.25rem 0'
-  };
-
-  const labelStyles = {
-    color: '#9ca3af',
-    fontSize: '0.75rem',
-    margin: 0
-  };
-
   return (
-    <div style={containerStyles}>
-      <div style={gridStyles}>
+    <div className="bg-[#1f2937] border-[2px] border-[#dc2626] rounded-[0.5rem] p-[1rem]">
+      <div className="grid grid-cols-2 gap-[1rem]">
         {statItems.map((stat, index) => (
           <div 
             key={index} 
-            style={statItemStyles}
+            className="text-center p-[0.5rem] rounded-[0.5rem] transition-colors duration-200"
             onMouseEnter={(e) => {
               e.target.style.backgroundColor = '#374151';
             }}
@@ -112,7 +72,7 @@ const StatsPanel = () => {
               e.target.style.backgroundColor = 'transparent';
             }}
           >
-            <div style={iconStyles}>
+            <div className="w-[3rem] h-[3rem] mx-auto mb-[0.5rem]">
               <img
                 src={stat.icon || "/placeholder.svg"}
                 alt={stat.label}
@@ -125,13 +85,14 @@ const StatsPanel = () => {
                 }}
               />
             </div>
-            <div style={{
-              ...valueStyles,
+            <div 
+            className="text-[1.5rem] font-bold text-[#ffffff] mb-[0.25rem]"
+            style={{
               textShadow: `0 0 10px ${stat.color}60`
             }}>
               {stat.value}
             </div>
-            <div style={labelStyles}>
+            <div className="text-[#9ca3af] text-[0.75rem] m-0">
               {stat.label}
             </div>
           </div>
