@@ -39,63 +39,16 @@ const MatchHistory = () => {
     }));
   };
 
-  const containerStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: 0,
-    height: '100%'
-  };
-
-  const titleStyles = {
-    fontSize: '1.125rem',
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: '0.75rem',
-    flexShrink: 0,
-    margin: '0 0 0.75rem 0'
-  };
-
-  const loadingStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '12rem',
-    color: '#9ca3af'
-  };
-
-  const matchesContainerStyles = {
-    flex: 1,
-    overflowY: 'auto',
-    paddingRight: '0.5rem',
-    scrollbarWidth: 'thin',
-    scrollbarColor: '#dc2626 #374151'
-  };
-
-  const matchCardStyles = {
-    backgroundColor: '#1f2937',
-    border: '2px solid #dc2626',
-    borderRadius: '0.5rem',
-    padding: '0.75rem',
-    marginBottom: '0.5rem',
-    flexShrink: 0,
-    transition: 'background-color 0.2s'
-  };
-
+  
   if (loading) {
     return (
-      <div style={containerStyles}>
-        <h2 style={titleStyles}>Here are your last 20 games:</h2>
-        <div style={loadingStyles}>
+      <div className="flex flex-col min-h-0 h-full">
+        <h2 className="text-[1.125rem] font-bold text-[#ffffff] mb-[0.75rem] shrink-0">Here are your last 20 games:</h2>
+        <div className="flex items-center justify-center h-[12rem] text-[#9ca3afWW]">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <div 
-              style={{
-                width: '1.5rem',
-                height: '1.5rem',
-                border: '2px solid #dc2626',
-                borderTop: '2px solid transparent',
-                borderRadius: '50%'
-              }}
-              className="animate-spin"
+             
+              className="animate-spin w-[1.5rem] h-[1.5rem] border-[2px] border-[#dc2626] border-t-transparent rounded-[50%]"
             ></div>
             Loading matches...
           </div>
@@ -105,13 +58,13 @@ const MatchHistory = () => {
   }
 
   return (
-    <div style={containerStyles}>
-      <h2 style={titleStyles}>Here are your last 20 games:</h2>
-      <div style={matchesContainerStyles}>
+    <div className="flex flex-col min-h-0 h-full">
+      <h2 className="text-[1.125rem] font-bold text-[#ffffff] mb-[0.75rem] shrink-0">Here are your last 20 games:</h2>
+      <div className="flex-1 overflow-y-auto pr-[0.5rem] scrollbar-thin scrollbar-thumb-[#dc2626] scrollbar-track-[#374151]">
         {matches.map((match) => (
           <div 
             key={match.id} 
-            style={matchCardStyles}
+            className="bg-[#1f2937] border-[2px] border-[#dc2626] rounded-[0.5rem] p-[0.75rem] mb-[0.5rem] shrink-0 transition-colors"
             onMouseEnter={(e) => {
               e.target.style.backgroundColor = '#374151';
             }}
@@ -119,79 +72,58 @@ const MatchHistory = () => {
               e.target.style.backgroundColor = '#1f2937';
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <div style={{
-                    width: '2.5rem',
-                    height: '2.5rem',
-                    borderRadius: '50%',
-                    overflow: 'hidden',
-                    border: '2px solid #4b5563'
-                  }}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex gap-2 items-center">
+                  <div className="w-[2.5rem] h-[2.5rem] rounded-[50%] overflow-hidden border-[2px] border-[#4b5563]">
                     <img
                       src="/placeholder.svg?height=40&width=40"
                       alt="Champion"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      className="w-full h-full object-cover"
                     />
                   </div>
-                  <div style={{
-                    backgroundColor: '#374151',
-                    borderRadius: '0.25rem',
-                    padding: '0.125rem 0.375rem',
-                    fontSize: '0.75rem',
-                    color: 'white'
-                  }}>
+                  <div 
+                    className="bg-[#374151] rounded-[0.25rem] px-[0.375rem] py-[0.125rem] text-[0.75rem] text-white ">
                     {match.level}
                   </div>
                 </div>
 
                 <div>
-                  <div style={{
-                    fontWeight: 'bold',
-                    fontSize: '0.875rem',
-                    color: match.result === 'VICTORY' ? '#22d3ee' : '#f87171'
-                  }}>
+                  <div className={`font-bold text-[0.875rem] ${match.result === 'VICTORY' ? 'text-[#22d3ee]' : 'text-[#f87171]'}`}>
                     {match.result}
                   </div>
-                  <div style={{ color: '#9ca3af', fontSize: '0.75rem' }}>
+                  <div className="text-[#9ca3af] text-[0.75rem]">
                     {match.mode}
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '0.25rem' }}>
+                <div className="flex gap-[0.25rem]">
                   {match.items.map((itemSrc, itemIndex) => (
                     <div 
                       key={itemIndex} 
-                      style={{
-                        width: '1.5rem',
-                        height: '1.5rem',
-                        backgroundColor: '#374151',
-                        borderRadius: '0.25rem',
-                        border: '1px solid #4b5563'
-                      }}
+                      className="w-[1.5rem] h-[1.5rem] bg-[#374151] rounded-[0.25rem] border-[1px] border-[#4b5563]"
                     >
                       <img
                         src={itemSrc || "/placeholder.svg"}
                         alt="Item"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.25rem' }}
+                        className="w-full h-full object-cover rounded-[0.25rem]"
                       />
                     </div>
                   ))}
                 </div>
 
-                <div style={{ color: '#ffffff', fontWeight: 'bold', fontSize: '0.875rem' }}>
+                <div className="text-[#ffffff] font-bold text-[0.875rem]">
                   {match.kda}
                 </div>
-                <div style={{ color: '#9ca3af', fontSize: '0.875rem' }}>
+                <div className="text-[#9ca3af] text-[0.875rem]">
                   {match.cs} CS
                 </div>
-                <div style={{ color: '#fbbf24', fontSize: '0.875rem' }}>
+                <div className="text-[#fbbf24] text-[0.875rem]">
                   {match.gold}g
                 </div>
               </div>
 
-              <div style={{ textAlign: 'right', color: '#9ca3af', fontSize: '0.75rem' }}>
+              <div className="text-right text-[#9ca3af] text-[0.75rem]">
                 <div>Summoner's Rift</div>
                 <div>
                   {match.duration} • {match.date}
