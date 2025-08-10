@@ -52,67 +52,8 @@ function App() {
     localStorage.setItem('theme', newTheme);
   };
 
-  const appStyles = {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: theme === "dark" ? '#111827' : '#f3f4f6',
-    fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
-    color: theme === "dark" ? '#ffffff' : '#1f2937'
-  };
-
-  const containerStyles = {
-    flex: 1,
-    maxWidth: '80rem',
-    margin: '0 auto',
-    padding: '1rem',
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: 0,
-    width: '100%'
-  };
-
-  const welcomeStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-    marginBottom: '1rem',
-    flexShrink: 0
-  };
-
-  const profileIconStyles = {
-    width: '3rem',
-    height: '3rem',
-    borderRadius: '50%',
-    border: '4px solid #dc2626',
-    overflow: 'hidden'
-  };
-
-  const gridStyles = {
-    flex: 1,
-    display: 'grid',
-    gridTemplateColumns: isLargeScreen ? '2fr 1fr' : '1fr',
-    gap: '1rem',
-    minHeight: 0
-  };
-
-  const matchHistoryStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: 0,
-    gridColumn: isLargeScreen ? '1' : 'auto'
-  };
-
-  const sidebarStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-    height: 'fit-content',
-    gridColumn: isLargeScreen ? '2' : 'auto'
-  };
-
   return (
-    <div style={appStyles}>
+    <div className={`h-screen flex flex-col ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-800'} font-sans`}>
       <Header 
         onLogout={handleLogout} 
         onThemeChange={handleThemeChange} 
@@ -120,9 +61,9 @@ function App() {
         theme={theme}
       />
 
-      <div style={containerStyles}>
-        <div style={welcomeStyles}>
-          <div style={profileIconStyles}>
+      <div className="flex-1 max-w-[80rem] mx-auto p-4 flex flex-col min-h-0 w-full">
+        <div className="flex items-center gap-4 mb-4 shrink-0">
+          <div className="w-12 h-12 rounded-full border-4 border-red-600 overflow-hidden">
             <img 
               src={user.profileIcon || "/placeholder.svg"} 
               alt="Summoner Icon" 
@@ -130,22 +71,18 @@ function App() {
             />
           </div>
           <div>
-            <h1 style={{ 
-              fontSize: '1.25rem', 
-              fontWeight: 'bold', 
-              color: theme === "dark" ? '#ffffff' : '#1f2937', 
-              margin: 0 
-            }}>
+            <h1 
+              className={`text-[1.25rem] font-bold ${theme === "dark" ? '#ffffff' : '#1f2937'}`}>
               Welcome, {user.username}
             </h1>
           </div>
         </div>
 
-        <div style={gridStyles}>
-          <div style={matchHistoryStyles}>
+        <div className="flex-1 grid gap-4 min-h-0 grid-cols-1 lg:grid-cols-[2fr_1fr]">
+          <div className="flex flex-col min-h-0 col-auto lg:col-[1]">
             <MatchHistory theme={theme} />
           </div>
-          <div style={sidebarStyles}>
+          <div className="flex flex-col gap-4 h-fit col-auto lg:col-[2]">
             <StatsPanel theme={theme} />
             <AskBlitzy
               onClick={() => setShowBlitzyChat(true)}
