@@ -57,107 +57,25 @@ const AskBlitzy = ({ onClick, isOpen, onClose }) => {
     }
   };
 
-  const modalStyles = {
-    position: 'fixed',
-    bottom: '1rem',
-    right: '1rem',
-    width: '24rem',
-    height: '24rem',
-    backgroundColor: '#1f2937',
-    border: '2px solid #dc2626',
-    borderRadius: '0.5rem',
-    zIndex: 50,
-    display: 'flex',
-    flexDirection: 'column',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(220, 38, 38, 0.1)'
-  };
-
-  const headerStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '1rem',
-    borderBottom: '1px solid #374151'
-  };
-
-  const messagesStyles = {
-    flex: 1,
-    padding: '1rem',
-    overflowY: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-    scrollbarWidth: 'thin',
-    scrollbarColor: '#dc2626 #374151'
-  };
-
-  const inputContainerStyles = {
-    padding: '1rem',
-    borderTop: '1px solid #374151',
-    display: 'flex',
-    gap: '0.5rem'
-  };
-
-  const inputStyles = {
-    flex: 1,
-    backgroundColor: '#374151',
-    border: '1px solid #4b5563',
-    borderRadius: '0.25rem',
-    padding: '0.5rem 0.75rem',
-    color: '#ffffff',
-    outline: 'none'
-  };
-
-  const buttonStyles = {
-    backgroundColor: '#dc2626',
-    border: 'none',
-    borderRadius: '0.25rem',
-    padding: '0.5rem',
-    color: 'white',
-    cursor: 'pointer',
-    transition: 'background-color 0.2s'
-  };
-
-  const cardStyles = {
-    backgroundColor: '#1f2937',
-    border: '2px solid #dc2626',
-    borderRadius: '0.5rem',
-    padding: '1rem',
-    cursor: 'pointer',
-    transition: 'background-color 0.2s'
-  };
 
   if (isOpen) {
     return (
-      <div style={modalStyles}>
-        <div style={headerStyles}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <div style={{ width: '2rem', height: '2rem', borderRadius: '50%', overflow: 'hidden' }}>
+      <div className="fixed bottom-4 right-4 w-96 h-96 bg-gray-800 border-2 border-red-600 rounded-lg z-50 flex flex-col shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_0_1px_rgba(220,38,38,0.1)]">
+        <div className="flex items-center justify-between p-4 border-b border-gray-700">
+          <div className="flex items-center gap-[0.5rem]">
+            <div className="w-[2rem] h-[2rem] rounded-[50%] overflow-hidden">
               <img 
                 src="/placeholder.svg?height=32&width=32&text=Blitz" 
                 alt="Blitzcrank" 
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  filter: 'drop-shadow(0 0 8px #fbbf2460)'
-                }}
+                className="w-full h-full object-cover shadow-[0_0_8px_#fbbf2460]"
               />
             </div>
-            <span style={{ color: '#ffffff', fontWeight: 'bold' }}>
+            <span className="text-white font-bold">
               Ask Blitzy
             </span>
           </div>
           <button 
-            style={{
-              color: '#9ca3af',
-              backgroundColor: 'transparent',
-              border: 'none',
-              padding: '0.25rem',
-              borderRadius: '0.25rem',
-              cursor: 'pointer',
-              transition: 'all 0.2s'
-            }}
+            className="text-[#9ca3af] bg-transparent border-none p-[0.25rem] rounded-[0.25rem] cursor-pointer transition-all"
             onClick={onClose}
             onMouseEnter={(e) => {
               e.target.style.color = '#ffffff';
@@ -168,14 +86,14 @@ const AskBlitzy = ({ onClick, isOpen, onClose }) => {
               e.target.style.backgroundColor = 'transparent';
             }}
           >
-            <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-[1rem] h-[1rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
           </button>
         </div>
         
-        <div style={messagesStyles}>
+        <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-2 scrollbar-thin scrollbar-thumb-red-600 scrollbar-track-gray-700">
           {messages.length === 0 && (
             <div style={{
               color: '#9ca3af',
@@ -190,29 +108,18 @@ const AskBlitzy = ({ onClick, isOpen, onClose }) => {
           {messages.map((msg, index) => (
             <div
               key={index}
-              style={{
-                padding: '0.5rem',
-                borderRadius: '0.5rem',
-                maxWidth: '75%',
-                backgroundColor: msg.isUser ? '#dc2626' : '#374151',
-                color: '#ffffff',
-                marginLeft: msg.isUser ? 'auto' : '0'
-              }}
+              className={`p-2 rounded-lg max-w-[75%] text-white ${msg.isUser ? 'bg-red-600 ml-auto' : 'bg-gray-700 ml-0'}`}
             >
               {msg.text}
             </div>
           ))}
           {loading && (
-            <div style={{
-              padding: '0.5rem',
-              borderRadius: '0.5rem',
-              maxWidth: '75%',
-              backgroundColor: '#374151',
-              color: '#ffffff'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div 
+              className="p-[0.5rem] rounded-[0.5rem] max-w-[75%] bg-[#374151] text-white"
+              >
+              <div className="flex center gap-[0.5rem]">
                 <div className="animate-pulse">💭</div>
-                <span style={{ fontSize: '0.875rem', opacity: 0.7 }}>
+                <span className="text-[0.875rem] gap-[0.5rem]">
                   Blitzy is thinking...
                 </span>
               </div>
@@ -220,16 +127,16 @@ const AskBlitzy = ({ onClick, isOpen, onClose }) => {
           )}
         </div>
         
-        <div style={inputContainerStyles}>
+        <div className="p-4 border-t border-gray-700 flex gap-2">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Ask Blitzy anything..."
             style={{
-              ...inputStyles,
               '::placeholder': { color: '#9ca3af' }
             }}
+            className="flex-1 bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white outline-none"
             onKeyPress={handleKeyPress}
             disabled={loading}
           />
@@ -237,11 +144,11 @@ const AskBlitzy = ({ onClick, isOpen, onClose }) => {
             onClick={handleSendMessage} 
             disabled={loading || !message.trim()}
             style={{
-              ...buttonStyles,
               backgroundColor: loading || !message.trim() ? '#6b7280' : '#dc2626',
               opacity: loading || !message.trim() ? 0.5 : 1,
               cursor: loading || !message.trim() ? 'not-allowed' : 'pointer'
             }}
+            className="bg-red-600 border-none rounded px-2 py-2 text-white cursor-pointer transition-colors"
             onMouseEnter={(e) => {
               if (!loading && message.trim()) {
                 e.target.style.backgroundColor = '#b91c1c';
@@ -253,7 +160,7 @@ const AskBlitzy = ({ onClick, isOpen, onClose }) => {
               }
             }}
           >
-            <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-[1rem] h-[1rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <line x1="22" y1="2" x2="11" y2="13"/>
               <polygon points="22,2 15,22 11,13 2,9 22,2"/>
             </svg>
@@ -265,7 +172,7 @@ const AskBlitzy = ({ onClick, isOpen, onClose }) => {
 
   return (
     <div 
-      style={cardStyles}
+      className="bg-gray-800 border-2 border-red-600 rounded-lg p-4 cursor-pointer transition-colors"
       onClick={onClick}
       onMouseEnter={(e) => {
         e.target.style.backgroundColor = '#374151';
@@ -274,34 +181,19 @@ const AskBlitzy = ({ onClick, isOpen, onClose }) => {
         e.target.style.backgroundColor = '#1f2937';
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div className="flex items-center justify-between">
         <div>
-          <h3 style={{ 
-            fontSize: '1.125rem', 
-            fontWeight: 'bold', 
-            color: '#ffffff', 
-            marginBottom: '0.25rem',
-            margin: '0 0 0.25rem 0'
-          }}>
+          <h3 
+            className="text-[1.125rem] font-bold text-white mb-[0.25rem]">
             Need tips? Ask Blitzy!
           </h3>
         </div>
-        <div style={{
-          width: '3rem',
-          height: '3rem',
-          borderRadius: '50%',
-          overflow: 'hidden',
-          border: '2px solid #fbbf24'
-        }}>
+        <div 
+            className="w-[3rem] h-[3rem] rounded-[50%] overflow-hidden border-[2px] border-[#fbbf24]">
           <img 
             src="/placeholder.svg?height=48&width=48&text=Blitz" 
             alt="Blitzcrank" 
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              filter: 'drop-shadow(0 0 12px #fbbf2460)'
-            }}
+            className="w-full h-full object-cover shadow-[0_0_12px_#fbbf2460]"
           />
         </div>
       </div>
