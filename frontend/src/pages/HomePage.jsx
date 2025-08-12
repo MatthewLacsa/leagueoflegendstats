@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Header from "./components/Header.jsx";
-import MatchHistory from "./components/MatchHistory.jsx";
-import StatsPanel from "./components/StatsPanel.jsx";
-import AskBlitzy from "./components/AskBlitzy.jsx";
+import Header from "../components/Header.jsx";
+import MatchHistory from "../components/MatchHistory.jsx";
+import StatsPanel from "../components/StatsPanel.jsx";
+import AskBlitzy from "../components/AskBlitzy.jsx";
 
 function HomePage() {
   const [theme, setTheme] = useState("dark");
