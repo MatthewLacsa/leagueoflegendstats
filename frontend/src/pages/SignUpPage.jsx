@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import {useAuthStore} from "../store/useAuthStore"
+import toast from 'react-hot-toast'
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -10,8 +12,23 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+
+  const {signup, isSigningUp} = useAuthStore();
+  const validateForm = () => {
+    if(!formData.username.trim()) {
+      return toast.error("Username is required!");
+    }
+    if(!formData.password) {
+      return toast.error("Password is required!");
+    }
+    if(formData.password.length < 6) {
+      return toast.error("Password must be at least 6 characters long");
+    }
+    if(formData.password !== formData.confirmPassword) {
+      return toast.error("Password does not match.");
+    }
+    return true;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -20,55 +37,17 @@ const Signup = () => {
       [name]: value,
     }))
   }
-
-  const handleSubmit = async (e) => {
+  
+  const handleSubmit = (e) => {
     e.preventDefault()
-    setLoading(true)
-    setError("")
 
-    // Validate passwords match
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords don't match")
-      setLoading(false)
-      return
+    const success = validateForm()
+    if(success) {
+      const { username, gameTag, password } = formData;
+      const signupData = { username, gameTag, password };
+      signup(signupData);
     }
-
-    // Validate password length
-    if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long")
-      setLoading(false)
-      return
-    }
-
-    try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          username: formData.username,
-          riotUsername: formData.username,
-          tagline: formData.gameTag,
-          password: formData.password,
-        }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        window.location.href = "/dashboard"
-      } else {
-        setError(data.error || "Registration failed")
-      }
-    } catch (error) {
-      console.error("Registration error:", error)
-      setError("Network error. Please try again.")
-    } finally {
-      setLoading(false)
-    }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-red-900 flex items-center justify-center p-4">
@@ -85,12 +64,6 @@ const Signup = () => {
         {/* Signup Form */}
         <div className="bg-gray-800 border-2 border-red-500 rounded-lg p-8 shadow-2xl">
           <h2 className="text-2xl font-bold text-white text-center mb-6">Create Account</h2>
-
-          {error && (
-            <div className="bg-red-600/20 border border-red-500 rounded-lg p-3 mb-4">
-              <p className="text-red-200 text-sm text-center">{error}</p>
-            </div>
-          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Username Field */}
@@ -174,14 +147,14 @@ const Signup = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={loading}
+              disabled={isSigningUp}
               className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-all ${
-                loading
+                isSigningUp
                   ? "bg-gray-600 cursor-not-allowed opacity-50"
                   : "bg-red-600 hover:bg-red-700 hover:shadow-lg hover:shadow-red-500/25"
               }`}
             >
-              {loading ? (
+              {isSigningUp ? (
                 <div className="flex items-center justify-center gap-2">
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   Creating Account...
