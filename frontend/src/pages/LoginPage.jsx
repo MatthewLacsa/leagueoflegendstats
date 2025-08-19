@@ -1,14 +1,12 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-
+import { useAuthStore } from "../store/useAuthStore"
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
-    gameTag: "",
     password: "",
   })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+  const {login, isLoggingIn} = useAuthStore();
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -19,38 +17,8 @@ const Login = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
-
-    try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          username: formData.username,
-          riotUsername: formData.username,
-          tagline: formData.gameTag,
-          password: formData.password,
-        }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        window.location.href = "/dashboard"
-      } else {
-        setError(data.error || "Login failed")
-      }
-    } catch (error) {
-      console.error("Login error:", error)
-      setError("Network error. Please try again.")
-    } finally {
-      setLoading(false)
-    }
+    e.preventDefault();
+    login(formData);
   }
 
   return (
@@ -69,11 +37,7 @@ const Login = () => {
         <div className="bg-gray-800 border-2 border-red-500 rounded-lg p-8 shadow-2xl">
           <h2 className="text-2xl font-bold text-white text-center mb-6">Sign In</h2>
 
-          {error && (
-            <div className="bg-red-600/20 border border-red-500 rounded-lg p-3 mb-4">
-              <p className="text-red-200 text-sm text-center">{error}</p>
-            </div>
-          )}
+
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Username Field */}
@@ -93,25 +57,6 @@ const Login = () => {
               />
             </div>
 
-            {/* Game Tag Field */}
-            <div>
-              <label htmlFor="gameTag" className="block text-sm font-medium text-gray-300 mb-2">
-                Game Tag
-              </label>
-              <div className="relative">
-                <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-medium">#</span>
-                <input
-                  type="text"
-                  id="gameTag"
-                  name="gameTag"
-                  value={formData.gameTag}
-                  onChange={handleChange}
-                  required
-                  className="w-full pl-8 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  placeholder="1234"
-                />
-              </div>
-            </div>
 
             {/* Password Field */}
             <div>
@@ -133,14 +78,14 @@ const Login = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoggingIn}
               className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-all ${
-                loading
+                isLoggingIn
                   ? "bg-gray-600 cursor-not-allowed opacity-50"
                   : "bg-red-600 hover:bg-red-700 hover:shadow-lg hover:shadow-red-500/25"
               }`}
             >
-              {loading ? (
+              {isLoggingIn ? (
                 <div className="flex items-center justify-center gap-2">
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   Signing In...
