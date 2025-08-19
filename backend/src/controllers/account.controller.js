@@ -3,16 +3,11 @@ import bcrypt from "bcryptjs"
 import { generateToken } from "../lib/utils.js";
 import { getUserInfo } from "../services/riotAPI.js";
 export async function signup(req, res) {
-    const {username, gametag, password} = req.body;
+    const {username, gameTag, password} = req.body;
 
     try {
-        const checkIfExists = await getUserInfo(username, gametag);
-        
-        if(!checkIfExists) {
-            return res.status(400).json({message: "This account does not exist"})
-        }
         //check if all fields are filled
-        if(!username || !gametag || !password) {
+        if(!username || !gameTag || !password) {
             return res.status(400).json({message: "Please fill all the fields."})
         }
         //check if password meets requirements
@@ -31,7 +26,7 @@ export async function signup(req, res) {
 
         const newRiotAccount = new User({
             username,
-            riotId: gametag,
+            riotId: gameTag,
             password: hashedPass
         });
 
@@ -42,7 +37,7 @@ export async function signup(req, res) {
             res.status(201).json({
                 _id: newRiotAccount._id,
                 username: newRiotAccount.username,
-                gametag: newRiotAccount.riotId,
+                gameTag: newRiotAccount.riotId,
             })
         } else {
             return res.status(400).json({message: "This user already exists"})
