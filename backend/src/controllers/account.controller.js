@@ -6,6 +6,11 @@ export async function signup(req, res) {
     const {username, gameTag, password} = req.body;
 
     try {
+        const checkUserInfo = getUserInfo(username, gameTag)
+
+        if(!checkUserInfo) {
+            return res.status(400).json({message: "Player does not exist"})
+        }
         //check if all fields are filled
         if(!username || !gameTag || !password) {
             return res.status(400).json({message: "Please fill all the fields."})
