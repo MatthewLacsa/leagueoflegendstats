@@ -6,7 +6,7 @@ export async function signup(req, res) {
     const {username, gameTag, password} = req.body;
 
     try {
-        const checkUserInfo = getUserInfo(username, gameTag)
+        const checkUserInfo = await getUserInfo(username, gameTag);
 
         if(!checkUserInfo) {
             return res.status(400).json({message: "Player does not exist"})
