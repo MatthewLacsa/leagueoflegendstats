@@ -31,20 +31,6 @@ function HomePage() {
     }
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      const response = await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
-      });
-      if (response.ok) {
-        setUser(null);
-        window.location.href = '/login';
-      }
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
 
   const handleThemeChange = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -55,7 +41,6 @@ function HomePage() {
   return (
     <div className={`h-screen flex flex-col ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-800'} font-sans`}>
       <Header 
-        onLogout={handleLogout} 
         onThemeChange={handleThemeChange} 
         currentTheme={theme}
         theme={theme}

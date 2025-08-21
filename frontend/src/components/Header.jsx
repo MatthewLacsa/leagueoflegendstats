@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useAuthStore } from "../store/useAuthStore";
 
-const Header = ({ onLogout, onThemeChange, currentTheme }) => {
+const Header = ({ onThemeChange, currentTheme }) => {
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const {logout} = useAuthStore();
 
 
   const dropdownItemStyles = {
@@ -68,10 +69,8 @@ const Header = ({ onLogout, onThemeChange, currentTheme }) => {
           {showDropdown && (
             <div className="absolute top-full right-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50 overflow-hidden">
               <button 
-                onClick={() => {
-                  onLogout();
-                  setShowDropdown(false);
-                }} 
+                onClick={logout}
+        
                 className="flex items-center gap-2 w-full px-3 py-2 bg-transparent border-none text-gray-700 cursor-pointer transition-colors text-left"
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = '#f3f4f6';
