@@ -3,16 +3,17 @@ import Header from "../components/Header.jsx";
 import MatchHistory from "../components/MatchHistory.jsx";
 import StatsPanel from "../components/StatsPanel.jsx";
 import AskBlitzy from "../components/AskBlitzy.jsx";
-
+import { useAuthStore } from "../store/useAuthStore.js";
 function HomePage() {
   const [theme, setTheme] = useState("dark");
   const [showBlitzyChat, setShowBlitzyChat] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
+  const authUser = useAuthStore((state) => state.authUser);
+
   const [user, setUser] = useState({
-    username: "Etheriouss#6171",
+    username: `${authUser.username} #${authUser.riotId}`,
     profileIcon: "/placeholder.svg?height=48&width=48"
   });
-
   // Handle responsive design
   useEffect(() => {
     const handleResize = () => {

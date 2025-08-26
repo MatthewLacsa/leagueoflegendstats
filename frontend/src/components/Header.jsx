@@ -25,7 +25,7 @@ const Header = ({ onThemeChange, currentTheme }) => {
       <div className="max-w-[80rem] mx-auto px-[1rem] py-[0.75rem] flex items-center justify-between h-[4rem]">
         <div className="flex items-center gap-[1rem]">
           <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-            <div className="w-8 h-8 bg-red-600 rounded-full"></div>
+            <img src="blitzy.jpg" alt="blitzy" className="w-10 h-10 bg-red-600 rounded-full"></img>
           </div>
           <div>
             <h1 className="text-2xl font-bold text-white m-0">Zaunite Strats</h1>

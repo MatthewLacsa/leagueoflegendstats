@@ -27,7 +27,7 @@ const Login = () => {
         {/* Logo Section */}
         <div className="text-center mb-8">
           <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <div className="w-12 h-12 bg-red-600 rounded-full"></div>
+            <img src="blitzy.jpg" alt="blitzy" className="w-15 h-15 bg-red-600 rounded-full"></img>
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">Zaunite Strats</h1>
           <p className="text-red-200">Welcome back, Summoner!</p>

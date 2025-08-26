@@ -191,7 +191,7 @@ const AskBlitzy = ({ onClick, isOpen, onClose }) => {
         <div 
             className="w-[3rem] h-[3rem] rounded-[50%] overflow-hidden border-[2px] border-[#fbbf24]">
           <img 
-            src="/placeholder.svg?height=48&width=48&text=Blitz" 
+            src="blitzy.jpg" 
             alt="Blitzcrank" 
             className="w-full h-full object-cover shadow-[0_0_12px_#fbbf2460]"
           />
