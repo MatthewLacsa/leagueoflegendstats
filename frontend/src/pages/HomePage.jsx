@@ -66,7 +66,9 @@ function HomePage() {
 
         <div className="flex-1 grid gap-4 min-h-0 grid-cols-1 lg:grid-cols-[2fr_1fr]">
           <div className="flex flex-col min-h-0 col-auto lg:col-[1]">
-            <MatchHistory theme={theme} />
+            <MatchHistory
+                          username="Etheriouss"
+                          gametag="6176"/>
           </div>
           <div className="flex flex-col gap-4 h-fit col-auto lg:col-[2]">
             <StatsPanel theme={theme} />
