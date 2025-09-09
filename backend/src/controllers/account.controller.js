@@ -79,7 +79,7 @@ export async function login(req, res) {
         res.status(200).json({
             _id: user._id,
             username: user.username,
-            gametag: user.gametag,
+            gametag: user.riotId,
     
         })
 
