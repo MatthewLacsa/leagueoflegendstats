@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
-
-const StatsPanel = () => {
+import { useMatchStore } from "../store/useMatchStore";
+const StatsPanel = ({username, gametag}) => {
+  const { matches, loading, fetchMatches } = useMatchStore();
+  useEffect(() => {
+    if (username && gametag) {
+      fetchMatches(username, gametag);
+    }
+  }, [username, gametag, fetchMatches]);
   const [stats, setStats] = useState({
     kdaRatio: "5.0",
     killParticipation: "100%",
