@@ -74,6 +74,9 @@ function HomePage() {
           </div>
           <div className="flex flex-col gap-4 h-fit col-auto lg:col-[2]">
             <StatsPanel
+                       username={user.username}
+                        gametag={user.gametag} 
+                        
                         />
             <AskBlitzy
               onClick={() => setShowBlitzyChat(true)}

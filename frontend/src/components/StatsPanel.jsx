@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useMatchStore } from "../store/useMatchStore";
+
 const StatsPanel = () => {
+  const { matches, loading } = useMatchStore();
 
   const [stats, setStats] = useState({
     kdaRatio: "5.0",
