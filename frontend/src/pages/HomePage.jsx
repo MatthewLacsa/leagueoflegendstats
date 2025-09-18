@@ -11,9 +11,9 @@ function HomePage() {
   const authUser = useAuthStore((state) => state.authUser);
 
   const [user, setUser] = useState({
-    name: `${authUser.username} #${authUser.gametag}`,
-    user: authUser.username,
-    riotId: authUser.gametag,
+    name: `${authUser.username} #${authUser.riotId}`,
+    username: authUser.username,
+    gametag: authUser.riotId,
     profileIcon: "/placeholder.svg?height=48&width=48"
   });
   // Handle responsive design
@@ -69,13 +69,12 @@ function HomePage() {
         <div className="flex-1 grid gap-4 min-h-0 grid-cols-1 lg:grid-cols-[2fr_1fr]">
           <div className="flex flex-col min-h-0 col-auto lg:col-[1]">
             <MatchHistory
-                          username={user.name}
-                          gametag={user.riotId}/>
+                          username={user.username}
+                          gametag={user.gametag}/>
           </div>
           <div className="flex flex-col gap-4 h-fit col-auto lg:col-[2]">
-            <StatsPanel theme={theme} 
-                        username="Etheriouss"
-                        gametag="6176"/>
+            <StatsPanel
+                        />
             <AskBlitzy
               onClick={() => setShowBlitzyChat(true)}
               isOpen={showBlitzyChat}

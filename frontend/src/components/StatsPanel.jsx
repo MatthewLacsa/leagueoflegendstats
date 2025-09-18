@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import { useMatchStore } from "../store/useMatchStore";
-const StatsPanel = ({username, gametag}) => {
-  const { matches, loading, fetchMatches } = useMatchStore();
-  useEffect(() => {
-    if (username && gametag) {
-      fetchMatches(username, gametag);
-    }
-  }, [username, gametag, fetchMatches]);
+const StatsPanel = () => {
+
   const [stats, setStats] = useState({
     kdaRatio: "5.0",
     killParticipation: "100%",
@@ -15,22 +10,9 @@ const StatsPanel = ({username, gametag}) => {
     csPerMinute: "16"
   });
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
 
-  const fetchStats = async () => {
-    try {
-      const response = await fetch('/api/stats', {
-        credentials: 'include'
-      });
-      const data = await response.json();
-      setStats(data.stats || stats);
-    } catch (error) {
-      console.error('Failed to fetch stats:', error);
-    }
-  };
 
+  
   const statItems = [
     {
       value: stats.kdaRatio,
